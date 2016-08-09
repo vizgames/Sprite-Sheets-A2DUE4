@@ -11,7 +11,7 @@ using namespace std;
 
 
 
-int intlength(int number) {
+int intlength(int number) {//считаем сколько знаков у интеджера у 1=1 у 13=2 у 777=3 итд(для нулей 001 002 003...)
 	int result = 0;
 
 	while (number != 0) {
@@ -20,27 +20,26 @@ int intlength(int number) {
 	}
 	return result;
 }
-
-int x(int nElement, int columns, int size) {
+//-------------
+int WHsize(int count, int WSize, int columns ) {
 	int result = 0;
-	result = nElement % columns;
-	result = size * result;
+	result = count % columns;
+	result = WSize * result;
 	return result;
 }
-
-
-int x(int ycounter, int size) {
+int WHsize(int Ycount, int HSize) {
 	int result = 0;
-	result = size * ycounter;
+	result = HSize * Ycount;
 	return result;
 }
+//-------------
 
 
 void main(){
 
 	setlocale(LC_ALL, "Russian");
 
-	int elements, elementSize, columns, width, ycount=-1, imgx=0, imgy=0;
+	int elements, elementSizeW, elementSizeH, columns, width, ycount=-1, imgx=0, imgy=0;
 	string imgname="";
 	const char fill = '0';
 
@@ -49,18 +48,20 @@ void main(){
 		cin >> imgx;
 	cout << "Размер картинки(Y): ";
 		cin >> imgy;
-	system("cls");
+	//system("cls");
 //===========================
 	cout << "число элементов: ";
 		cin >> elements;
-	width = intlength(elements);//вносим поправик в количество знаков(считаем сколько знаков у инта(elements)
-	system("cls");
+	width = intlength(elements);//вносим поправки в количество знаков(считаем сколько знаков у инта(elements) используется для того что бы ставить нули 001 002 итд
+	//system("cls");
 //===========================
-	cout << "размер элемента: ";
-		cin >> elementSize;
+	cout << "размер элемента(Ширина): ";
+		cin >> elementSizeW;
+	cout << "размер элемента(Высота): ";
+		cin >> elementSizeH;
 	cout << "колонок: ";
 		cin >> columns;
-	system("cls");
+	//system("cls");
 //===========================
 	cout << "имя картинки: ";
 		cin >> imgname;
@@ -82,11 +83,11 @@ void main(){
 		
 		intext << "{\n";
 
-		intext << "\t\"frame\": {\"x\":" + to_string(x(i, columns, elementSize)) + ",\"y\":" + to_string(x(ycount, elementSize)) + ",\"w\":" + to_string(elementSize) + ",\"h\":" + to_string(elementSize) + "},\n";
+		intext << "\t\"frame\": {\"x\":" + to_string(WHsize(i, elementSizeW, columns)) + ",\"y\":" + to_string(WHsize(ycount, elementSizeH)) + ",\"w\":" + to_string(elementSizeW) + ",\"h\":" + to_string(elementSizeH) + "},\n";
 		intext << "\t\"rotated\": false,\n";
 		intext << "\t\"trimmed\": false,\n";
-		intext << "\t\"spriteSourceSize\": {\"x\":0,\"y\":0,\"w\":" + to_string(elementSize) + ",\"h\":" + to_string(elementSize) + "},\n";
-		intext << "\t\"sourceSize\": {\"w\":" + to_string(elementSize) + ",\"h\":" + to_string(elementSize) + "},\n";
+		intext << "\t\"spriteSourceSize\": {\"x\":0,\"y\":0,\"w\":" + to_string(elementSizeW) + ",\"h\":" + to_string(elementSizeH) + "},\n";
+		intext << "\t\"sourceSize\": {\"w\":" + to_string(elementSizeW) + ",\"h\":" + to_string(elementSizeH) + "},\n";
 		intext << "\t\"pivot\": {\"x\":0.5,\"y\":0.5}\n";
 
 		if (i != elements - 1) 
